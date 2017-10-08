@@ -1,0 +1,65 @@
+<div class="row ">
+  <div class="col-md-8">
+    <table class="table item-striped">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th *ngIf="authService.isAdmin()"></th>
+        <th *ngIf="authService.isAdmin()"></th>
+      </tr>
+      <tr *ngFor="let item of itemService.items; let position = index">
+        <td>{{position}}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td *ngIf="authService.isAdmin()"><i class="fa fa-pencil fa-lg" aria-hidden="true" (click)="edit(position, item)"></i>
+        </td>
+        <td *ngIf="authService.isAdmin()"><i class="fa fa-trash fa-lg" aria-hidden="true" (click)="remove(item)"></i>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-success center-block" [disabled]="itemService.isSubscribed"
+                (click)="itemService.subscribe()">Subscribe
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-danger center-block" [disabled]="!itemService.isSubscribed"
+                (click)="itemService.unsubscribe()">Unubscribe
+        </button>
+      </div>
+    </div>
+    <div *ngIf="authService.isAdmin()" class="row top10">
+      <div class="col-md-12">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="itemPosition" class="col-md-4 control-label">Position</label>
+            <div class="col-md-6">
+              <input type="number" min="-1" step="1" class="form-control" id="itemPosition" placeholder="Position"
+                     [(ngModel)]="position" name="itemPosition">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="itemName" class="col-md-4 control-label">Name</label>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="itemName" placeholder="Name" [(ngModel)]="item.name"
+                     name="itemName">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <button *ngIf="item.id == null" type="submit" class="btn btn-default" (click)="createOrUpdate()">Add
+              </button>
+              <button *ngIf="item.id != null" type="submit" class="btn btn-default" (click)="createOrUpdate()">Update
+              </button>
+              <button type="submit" class="btn btn-default" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.auth-menu {
+  float: right;
+}
+
+.connected {
+  color: green;
+}
+
+.disconnected {
+  color: red;
+}
+
+.connection-status {
+  position: fixed;
+  left: 50%;
+  top: 5px;
+}
